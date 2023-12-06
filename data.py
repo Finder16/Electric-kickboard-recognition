@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+from tensorflow.keras.callbacks import EarlyStopping
 
 # 데이터 경로 설정
 data_dir = "/Users/leejaeyeong/Desktop/emotionproject/data"
@@ -69,8 +70,11 @@ model.add(Dense(1, activation='sigmoid'))
 # 모델 컴파일
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
+# Early Stopping 설정
+early_stopping = EarlyStopping(monitor='val_loss', patience=100, restore_best_weights=True)
+
 # 모델 훈련
-model.fit(train_generator, epochs=30, validation_data=validation_generator)
+model.fit(train_generator, epochs=300, validation_data=validation_generator, callbacks=[early_stopping])
 
 # 훈련 데이터 정확도 출력
 train_accuracy = model.evaluate(train_generator)[1]
@@ -79,4 +83,3 @@ print(f'훈련 데이터 정확도: {train_accuracy * 100:.2f}%')
 # 검증 데이터 정확도 출력
 validation_accuracy = model.evaluate(validation_generator)[1]
 print(f'검증 데이터 정확도: {validation_accuracy * 100:.2f}%')
-
