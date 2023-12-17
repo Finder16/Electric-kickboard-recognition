@@ -53,9 +53,9 @@ model.add(Conv2D(128, (3, 3), activation='relu'))
 model.add(MaxPooling2D((2, 2)))
 
 # 은닉층 3
-model.add(Conv2D(128, (3, 3), activation='sigmoid'))
+model.add(Conv2D(128, (3, 3), activation='relu'))
 model.add(MaxPooling2D((2, 2)))
-model.add(Conv2D(128, (3, 3), activation='sigmoid'))
+model.add(Conv2D(128, (3, 3), activation='relu'))
 model.add(MaxPooling2D((2, 2)))
 
 # Flatten 층: 3D 출력을 1D로 변환
@@ -65,7 +65,7 @@ model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 
 # 출력층
-model.add(Dense(1, activation='sigmoid'))
+model.add(Dense(1, activation='relu'))
 
 # 모델 컴파일
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
